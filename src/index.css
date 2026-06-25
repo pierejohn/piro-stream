@@ -1,0 +1,59 @@
+
+
+/* ================================
+   Imports & Theme
+================================ */
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+
+@import "tailwindcss";
+/* ================================
+   defelte 
+================================ */
+@theme {
+  --color-primary: #6366f1;
+  --color-secondary: #8b5cf6;
+  --color-accent: #ec4899;
+  --color-dark: #1e293b;
+  --color-light: #f8fafc;
+
+  --font-sans: Inter, sans-serif;
+}
+
+/* ================================
+   Base Styles
+================================ */
+html {
+  scroll-behavior: smooth;
+  /* overflow-x: hidden */
+
+}
+/* ================================
+  activeNav Styles
+================================ */
+
+.SpinnerScreen.fade {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+
+@layer base{
+html {
+  @apply min-h-screen bg-gradient-to-b from-black from-50%  to-[#050520]  ;
+}
+.nav-container {
+    @apply w-full mx-auto max-w-[95%] sm:max-w-[95%] xl:max-w-[95%] ;
+  }
+.app-container {
+    @apply w-full mx-auto max-w-[95%] sm:max-w-[95%] xl:max-w-[95%] ;
+  }
+  .textGradiant
+  {
+    @apply bg-gradient-to-r  from-blue-500 to-purple-900 w-fit bg-clip-text text-transparent
+  }
+   .btnGradiant
+  {
+    @apply bg-gradient-to-r  from-blue-500 to-purple-900 w-fit 
+  }
+}
