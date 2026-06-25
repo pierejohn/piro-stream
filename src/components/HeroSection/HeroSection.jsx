@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import img from '../../assets/response.jpeg'
 import { IoPlay } from "react-icons/io5";
 import { IoMdInformationCircle } from "react-icons/io";
@@ -6,8 +6,13 @@ import { IoMdInformationCircle } from "react-icons/io";
 import { requests, getImage, requesMoviestDetails, requesMoviesOrTvDetails, requesMoviesOrTvLogo } from '../../api';
 import axios from 'axios';
 import Spinner from '../Spinner/Spinner';
+import { AppContext } from '../../context/AppContext';
+
 
 export default function HeroSection() {
+
+let {trendingMovies,setTrendingMovies}=useContext(AppContext)
+
 
     const [trending, setTrending] = useState(null)
     const [bgImg, setBgImg] = useState(null)
@@ -37,8 +42,9 @@ export default function HeroSection() {
 
         await axios.get(requests.trending).then((data) => {
 
-            localStorage.setItem('trendingMovies', JSON.stringify(data.data.results))
 
+            // localStorage.setItem('trendingMovies', JSON.stringify(data.data.results))
+setTrendingMovies(data.data.results)
 
             getMovieDetails(data.data.results[0])
 

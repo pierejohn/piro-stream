@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import MovieCartTrending from '../MovieCartTrending/MovieCartTrending'
 import '../../index.css'
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -7,14 +7,13 @@ import { Navigation, Pagination, Autoplay } from 'swiper/modules'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
+import { AppContext } from '../../context/AppContext'
 
 export default function MoviesTrendingSlider() {
-    const [trendingMovies, setTrendingMovies] = useState([])
+    
+let {trendingMovies}=useContext(AppContext)
 
-    useEffect(() => {
-        const movies = JSON.parse(localStorage.getItem('trendingMovies')) || []
-        setTrendingMovies(movies)
-    }, [])
+   
 
     return (
         <div className='app-container mt-5'>

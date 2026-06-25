@@ -20,7 +20,7 @@ export default function MoviesCartPoster(props) {
                     <img
                         className=" w-full object-contain transition-transform duration-500 group-hover:scale-110"
                         src={getImage(poster_path)}
-
+                        loading='lazy'
                         alt=""
                     />
 

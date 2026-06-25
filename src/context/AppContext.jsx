@@ -6,11 +6,11 @@ export let AppContext=createContext(2)
 
 export default function AppContextProvider({children})
 {
- let [cardNumber, setCardNumber] = useState(0)
+ let [trendingMovies, setTrendingMovies] = useState([])
 
     
    return (
-  <AppContext.Provider value={{ cardNumber ,setCardNumber}}>
+  <AppContext.Provider value={{ trendingMovies ,setTrendingMovies}}>
     {children}
   </AppContext.Provider>
 )
