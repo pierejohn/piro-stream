@@ -11,7 +11,7 @@ import { AppContext } from '../../context/AppContext';
 
 export default function HeroSection() {
 
-let {trendingMovies,setTrendingMovies}=useContext(AppContext)
+    let { trendingMovies, setTrendingMovies } = useContext(AppContext)
 
 
     const [trending, setTrending] = useState(null)
@@ -19,23 +19,7 @@ let {trendingMovies,setTrendingMovies}=useContext(AppContext)
     const [isLoading, setIsLoading] = useState(true)
     const [logo, setLogo] = useState(null)
     // to remove scrool in loading screen 
-    useEffect(() => {
-        if (isLoading) {
-            document.body.style.overflow = 'hidden';
-        } else {
-            setTimeout(() => {
-                document.body.style.overflow = 'auto';
-            }, 500);
-
-        }
-
-        // Cleanup when component unmounts
-        return () => {
-            setTimeout(() => {
-                document.body.style.overflow = 'auto';
-            }, 500);
-        };
-    }, [isLoading]);
+  
 
     // get the trenting movies 
     async function getMovies() {
@@ -43,8 +27,8 @@ let {trendingMovies,setTrendingMovies}=useContext(AppContext)
         await axios.get(requests.trending).then((data) => {
 
 
-            // localStorage.setItem('trendingMovies', JSON.stringify(data.data.results))
-setTrendingMovies(data.data.results)
+            
+            setTrendingMovies(data.data.results)
 
             getMovieDetails(data.data.results[0])
 
@@ -64,6 +48,8 @@ setTrendingMovies(data.data.results)
 
 
         await axios.get(requesMoviesOrTvDetails(movie.id, movie.media_type)).then((data) => {
+            console.log(data.data);
+            
             setTrending(data.data)
             setBgImg(getImage(data.data.backdrop_path))
             getMovieLogo(movie.id, movie.media_type);
@@ -100,7 +86,7 @@ setTrendingMovies(data.data.results)
     return (
         <>
             <div className={`
-              fixed inset-0 z-50 transition-all duration-1500 ease-in-out
+              fixed inset-0 z-40 transition-all  duration-1500 ease-in-out
                 ${isLoading ? 'opacity-100 ' : 'opacity-0  pointer-events-none'}
             `}>
                 <Spinner />

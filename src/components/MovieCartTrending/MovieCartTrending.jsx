@@ -11,23 +11,23 @@ export default function MovieCartTrending(props) {
     <>
       
 
-        <div className="group relative w-65">
+        <div className="group relative w-50  md:w-65">
           {/* Background Number */}
-          <h1 className="absolute left-[5px] top-[5px] text-[4rem] leading-[0.8] text-transparent [-webkit-text-stroke:1px_#6366f1] z-10 transition-all duration-500  ">
+          {/* <h1 className="absolute left-[-40px] top-[5px] rotate-4 text-[10rem] leading-[0.8] text-transparent [-webkit-text-stroke:1px_#6366f1] z-0 opacity-30 group-hover:opacity-60 group-hover:z-10 transition-all duration-500  ">
             {props.index}
-          </h1>
+          </h1> */}
 
           {/* Card */}
           <div className="relative overflow-hidden rounded-2xl">
             <img
-              className="h-35 w-full object-cover transition-transform duration-500 group-hover:scale-110"
+              className=" w-full object-cover rounded-2xl transition-transform duration-500 group-hover:scale-110"
               src={`https://image.tmdb.org/t/p/original/${props.movieDetails.backdrop_path}`}
 
               alt=""
             />
 
             {/* Gradient Overlay */}
-            <div className="absolute inset-0  bg-gradient-to-r from-black via-black/70 to-transparent" />
+            <div className="absolute w-full h-full inset-0 rounded-2xl group-hover:scale-110 bg-gradient-to-r from-gray-900 via-black/50 to-transparent" />
 
             {/* Content */}
             <div className="absolute bottom-0 right-0 p-4">

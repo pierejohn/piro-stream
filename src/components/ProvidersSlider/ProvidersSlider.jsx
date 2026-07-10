@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import MovieCartTrending from '../MovieCartTrending/MovieCartTrending'
 import '../../index.css'
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -8,12 +8,26 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import ProvidersCart from '../ProvidersCart/ProvidersCart'
+import { AppContext } from '../../context/AppContext'
+import axios from 'axios'
+import { requestAllProviders } from '../../api'
 
-export default function ProvidersSliders(props) {
+
+
+
+
+export default function ProvidersSliders() {
    
     
-    const [providers, setProviders] = useState(props.providers)
+    
 
+   
+    let {filterProvider,setFilterProvider,wantedProviders}= useContext(AppContext)
+   
+       
+       
+        
+   
    
 
     return (
@@ -30,7 +44,7 @@ export default function ProvidersSliders(props) {
                     delay: 8000,
                     disableOnInteraction: true,
                 }}
-                loop={providers.length > 12}
+                loop={filterProvider.length > 12}
                 breakpoints={{
                     0: {
                         slidesPerView: 3,
@@ -58,7 +72,7 @@ export default function ProvidersSliders(props) {
                     },
                 }}
             >
-                {props.providers.map((val, index) => (
+                {filterProvider.map((val, index) => (
                   
                     <SwiperSlide key={val.id || index}>
                         <ProvidersCart providers={val} />

@@ -18,7 +18,7 @@ let {trendingMovies}=useContext(AppContext)
     return (
         <div className='app-container mt-5'>
 
-            <h1 className='text-white text-2xl font-bold my-5 border-s-8 border-primary ps-3 '>Top 20</h1>
+            <h1 className='text-white text-2xl font-bold my-5 border-s-8 border-primary ps-3 '>Top 20 Today</h1>
 
             <Swiper className='cursor-grab'
                 modules={[  Autoplay]}
@@ -32,11 +32,11 @@ let {trendingMovies}=useContext(AppContext)
                 loop={trendingMovies.length > 6}
                 breakpoints={{
                     0: {
-                        slidesPerView: 1.2,
+                        slidesPerView: 1.5,
                         spaceBetween: 10,
                     },
                     480: {
-                        slidesPerView: 1.5,
+                        slidesPerView: 2,
                         spaceBetween: 12,
                     },
                     768: {
@@ -57,7 +57,7 @@ let {trendingMovies}=useContext(AppContext)
                     },
                 }}
             >
-                {trendingMovies.map((val, index) => (
+                {trendingMovies.splice(0,10).map((val, index) => (
                     <SwiperSlide key={val.id || index}>
                         <MovieCartTrending movieDetails={val} index={index + 1} />
                     </SwiperSlide>

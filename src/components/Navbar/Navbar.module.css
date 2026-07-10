@@ -9,12 +9,11 @@
   --font-sans: Inter, sans-serif;
 } 
 /* activeNav style */
-.activeNav{
- overflow: hidden; 
- padding-bottom:5px;
-
+ .activeNav{
+ 
 
 }
+/*
 .activeNav::after{
 content: '';
 position: absolute;
@@ -25,10 +24,18 @@ width: 100%;
 height: 5px;
 background: linear-gradient(to right, #462186, #9333ea);
 border-radius: 10px;
-}
-.activeNavtrue::after {
-  left: 0;
-}
+}*/
+.activeNavtrue{
+  color: transparent !important;
+  background: linear-gradient(to right, #462186, #9333ea);
+  background-clip: text;
+/* background-color: blue; */
+
+} 
+
+
+
+
 /* navbar style */
 .navHight{
   @apply min-h-0
@@ -38,7 +45,7 @@ border-radius: 10px;
 }
 .navbarSetting{
   @apply fixed top-0 left-1/2 -translate-x-1/2  w-[95%] lg:w-screen flex flex-col justify-center items-center rounded-2xl bg-transparent 
-  backdrop-blur-lg 
+  backdrop-blur-sm 
    my-3 lg:my-0 py-3 z-50
 }
 

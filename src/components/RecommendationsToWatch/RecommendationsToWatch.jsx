@@ -1,44 +1,21 @@
 import React, { useEffect, useState } from 'react'
-import MoviesCartPoster from '../MoviesCartPoster/MoviesCartPoster'
-import '../../index.css'
-import { Swiper, SwiperSlide } from 'swiper/react'
-import { Navigation, Pagination, Autoplay } from 'swiper/modules'
-import { popularMoviesAndTv, requesMoviesOrTvFromProvider, requests } from '../../api'
-import { FaChevronRight } from "react-icons/fa";
+import { recommendations } from '../../api';
+import axios from 'axios';
+import NetflixMoviesSlider from '../NetflixMoviesSlider/NetflixMoviesSlider';
+import MoviesCartPoster from '../MoviesCartPoster/MoviesCartPoster';
 
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
-import axios from 'axios'
+import { Swiper, SwiperSlide } from 'swiper/react'
 
-import { FaHandPointRight } from "react-icons/fa";
+export default function RecommendationsToWatch({ type, id }) {
 
-export default function NetflixMoviesSlider(props) {
-
-    // console.log(props);
-
-
-    let { providerName, providerNumber, type, category = null, home = false } = props
-
-
-
-    const [netflixMovies, setNetflixMovies] = useState([])
-
-
-    async function getNetflixMoviesHome(type, category) {
-
-        await axios.get(popularMoviesAndTv(type, category)).then((data) => {
+    const [recommendat, setRecommendat] = useState([])
+    async function recommendationsMovies() {
+        await axios.get(recommendations(type, id)).then((data) => {
             // console.log(data.data.results);
-            setNetflixMovies(data.data.results)
-        }).catch((error) => {
-            console.log(error);
-
-        })
-    }
-    async function getNetflixMovies() {
-        await axios.get(requesMoviesOrTvFromProvider(type, providerNumber)).then((data) => {
-            // console.log(data.data.results);
-            setNetflixMovies(data.data.results)
+            setRecommendat(data.data.results)
         }).catch((error) => {
             console.log(error);
 
@@ -46,23 +23,16 @@ export default function NetflixMoviesSlider(props) {
     }
 
     useEffect(() => {
-        if (home) {
-            getNetflixMoviesHome(type, category)
-        } else {
-            getNetflixMovies()
-        }
+        recommendationsMovies()
 
 
-
-    }, [type, home, category, providerNumber])
-
+    }, [])
     return (
-        <div className='app-container mt-5'>
-
-            <h1 className='text-gray-500 w-fit  text-md md:text-xl lg:text-2xl font-bold my-5 border-s-8 cursor-pointer  border-primary ps-3 flex gap-3 items-center hover:text-white duration-300'>{providerName}<FaChevronRight />
-            </h1>
-
-            <Swiper className='cursor-grab'
+    <>
+        <div className='text-gray-500 w-fit  text-md md:text-xl lg:text-2xl font-bold my-5 border-s-8 cursor-pointer  border-primary ps-3 flex gap-3 items-center hover:text-white duration-300'>Related</div>
+        
+            ({recommendat.length == 0 ? '' :
+                 <Swiper className='cursor-grab'
 
 
                 navigation
@@ -109,7 +79,7 @@ export default function NetflixMoviesSlider(props) {
                 }}
             >
 
-                {netflixMovies.map((val, index) => (
+                {recommendat.map((val, index) => (
                     <SwiperSlide key={val.id || index}>
                         <MoviesCartPoster type={type} movieDetails={val} index={index + 1} />
 
@@ -123,9 +93,9 @@ export default function NetflixMoviesSlider(props) {
                         </h1>
                     </div>
                 </SwiperSlide>:''} */}
-
+                
             </Swiper>
-        </div>
-
+            })
+        </>
     )
 }

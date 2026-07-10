@@ -8,57 +8,15 @@ import NetflixMoviesSlider from '../../components/NetflixMoviesSlider/NetflixMov
 import { requestAllProviders } from '../../api'
 import axios from 'axios'
 import ProvidersSliders from '../../components/ProvidersSlider/ProvidersSlider'
+import Providers from './Providers'
 
-const wantedProviders = [
-  "Netflix",
-  "Disney Plus",
-  "Amazon Prime Video",
-  "Apple TV",
-  "Max",
-  "Hulu",
-  "Peacock Premium",
-  "Crunchyroll",
-  "Shahid VIP",
-  "MUBI",
-  "Curiosity Stream",
-  "STARZ",
-  "AMC+",
-  "YouTube Premium",
-  
 
-];
-let filtered
-let uniqueProviders
+
+
+
 export default function Home() {
 
-  const [filterProvider, setFilterProvider] = useState([])
-
-  async function requistProviders() {
-    await axios.get(requestAllProviders('tv')).then((data) => {
-      // console.log(data.data.results);
-
-      filtered = data.data.results.filter(provider =>
-        wantedProviders.includes(provider.provider_name)
-
-      );
-      uniqueProviders = filtered.filter(
-        (provider, index, self) =>
-          index === self.findIndex(
-            p => p.provider_name === provider.provider_name
-          )
-      );
-      setFilterProvider(uniqueProviders)
-      // console.log(filtered);
-
-    }).catch((error) => {
-      console.log(error());
-
-    })
-  }
-
-  useEffect(() => {
-    requistProviders();
-  }, []);
+  
 
 
   return (
@@ -68,18 +26,27 @@ export default function Home() {
 
       <HeroSection />
       <MoviesTrendingSlider />
-      <ProvidersSliders providers={filterProvider}/>
-      {filterProvider.map((val) => {
-        
+      <ProvidersSliders />
+      
+   {/* top_rated
+upcoming
+popular */}
 
-        return <div key={val.provider_id}>
-         
-          <NetflixMoviesSlider providerName={val.provider_name+' Movies'} type={'movie'} providerNumber={val.provider_id} />
-          <NetflixMoviesSlider providerName={val.provider_name+' Tv Series'} type={'tv'} providerNumber={val.provider_id} />
-        </div>
-      })}
+{/* call the componant to show slider Popular Movie and Tv Series in home */}
+<NetflixMoviesSlider providerName={'Popular Movie'} type={'movie'} category={'popular'} home={true}/>
+<NetflixMoviesSlider providerName={'Popular Tv Series'} type={'tv'} category={'popular'} home={true}/>
+{/* call the componant to show slider top_rated Movie and Tv Series in home */}
+<NetflixMoviesSlider providerName={'Top Rated Movie'} type={'movie'} category={'top_rated'} home={true}/>
+<NetflixMoviesSlider providerName={'Top Rated  Series'} type={'tv'} category={'top_rated'} home={true}/>
+{/* call the componant to show slider upcoming Movie in home */}
+{/* <NetflixMoviesSlider providerName={'upcoming Movie'} type={'movie'} category={'upcoming'} home={true}/> */}
+
+
+
+{/* <NetflixMoviesSlider providerName={'Netflix Movies'} type={'movie'} providerNumber={8}/> */}
+     {/* <Providers/> */}
       {/* <NetflixMoviesSlider providerName={'Netflix Movies'} type={'movie'} providerNumber={8}/>
-  <NetflixMoviesSlider providerName={'Netflix Tv Series'} type={'tv'} providerNumber={8}/>
+  // <NetflixMoviesSlider providerName={'Netflix Tv Series'} type={'tv'} providerNumber={8}/>
   <NetflixMoviesSlider providerName={'Apple TV+ movie'} type={'movie'} providerNumber={350}/>
   <NetflixMoviesSlider providerName={'Apple TV+ Series'} type={'tv'} providerNumber={350}/>
   <NetflixMoviesSlider providerName={'Disney+ movie'} type={'movie'} providerNumber={337}/>

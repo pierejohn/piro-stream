@@ -6,7 +6,7 @@ import '../../index.css'
 
 export default function ProvidersCart(props) {
   
-   console.log(props.providers);
+   
    
    
   return (
