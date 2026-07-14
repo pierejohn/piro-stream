@@ -12,9 +12,21 @@ export const requests = {
   topRated: `${BASE_URL}/movie/top_rated?api_key=${API_KEY}`,
   upcoming: `${BASE_URL}/movie/upcoming?api_key=${API_KEY}`,
 };
+
+// ✅ Get tv tt of the seson
+
+
+export function imdbIdForEpisode(id,seasonNumber,episodeNumber){
+
+
+ 
+  return `${BASE_URL}/tv/${id}/season/${seasonNumber}/episode/${episodeNumber}/external_ids?api_key=${API_KEY}`
+ 
+};
+
 // ✅ Get movie cast
 
-
+ 
 export function cast(type,id){
 
 

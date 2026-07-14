@@ -2,6 +2,8 @@ import React, { useEffect, useMemo, useState } from 'react'
 import axios from 'axios'
 import { getImage, tvSeasonDetailsApi } from '../../api'
 import { NavLink, useNavigate, useParams } from 'react-router-dom'
+import ShinyText from '../ShinnyText/ShinnyText'
+import { div } from 'motion/react-client'
 
 export default function SeasonsAndEpisodes({ tvId, seasons }) {
     const { SeasonNum } = useParams()
@@ -55,10 +57,9 @@ export default function SeasonsAndEpisodes({ tvId, seasons }) {
                         key={season.id}
                         to={`/watch/tv/${tvId}/season/${season.season_number}`}
                         className={({ isActive }) =>
-                            `px-4 py-2 rounded-lg text-sm font-bold transition-all duration-300 ${
-                                isActive
-                                    ? 'bg-red-600 text-white'
-                                    : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+                            `px-4 py-2 rounded-lg text-sm font-bold transition-all duration-300 ${isActive
+                                ? 'bg-red-600 text-white'
+                                : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
                             }`
                         }
                     >
@@ -82,14 +83,26 @@ export default function SeasonsAndEpisodes({ tvId, seasons }) {
                 </div>
             ) : seasonDetails?.episodes ? (
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                    {console.log(seasonDetails)}
                     {seasonDetails.episodes.map((episode) => (
-                        <div
+
+
+                        <NavLink
+                            to={`Episode/${episode.episode_number}`}
+
+                            onClick={() => {
+                                console.log(episode.
+                                    episode_number
+                                );
+
+                            }
+                            }
                             key={episode.id}
                             className="bg-gray-900 rounded-xl overflow-hidden hover:scale-105 transition-all duration-300 cursor-pointer"
                         >
                             {/* Episode Image */}
                             <div className="relative">
-                                <img
+                                {episode.still_path ? <img
                                     src={
                                         episode.still_path
                                             ? getImage(episode.still_path)
@@ -97,7 +110,23 @@ export default function SeasonsAndEpisodes({ tvId, seasons }) {
                                     }
                                     alt={episode.name}
                                     className="w-full h-40 object-cover"
-                                />
+                                /> :
+                                    <div className='w-full h-40 object-cover flex justify-around items-center text-4xl'><ShinyText
+                                        text=" Soon"
+                                        speed={2.3}
+                                        delay={0}
+                                        color="#392974"
+                                        shineColor="#e10e9c"
+                                        spread={150}
+                                        direction="left"
+                                        yoyo
+                                        pauseOnHover={false}
+                                        disabled={false}
+                                    /></div>
+                                }
+
+
+
 
                                 <div className="absolute top-2 left-2 bg-black/70 text-white text-xs px-2 py-1 rounded">
                                     E{episode.episode_number}
@@ -132,7 +161,7 @@ export default function SeasonsAndEpisodes({ tvId, seasons }) {
                                     )}
                                 </div>
                             </div>
-                        </div>
+                        </NavLink>
                     ))}
                 </div>
             ) : (

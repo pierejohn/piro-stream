@@ -70,7 +70,7 @@ export default function Providers(props) {
       {/* Spinner */}
       <div className={`
               fixed inset-0 z-40 transition-all  duration-1500 ease-in-out
-                ${isLoading ? 'opacity-30 ' : 'opacity-0  pointer-events-none'}
+                ${isLoading ? 'opacity-100 ' : 'opacity-0  pointer-events-none'}
             `}>
                 <Spinner />
             </div>

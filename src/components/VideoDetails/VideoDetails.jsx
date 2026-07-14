@@ -63,15 +63,15 @@ export default function VideoDetails({ movieDetails, type }) {
                 </div>}
 
 
-              
+
                 {type == 'tv' ? <div className=" rounded">
                     <div className='flex justify-between '>
                         <h2 >Number of Episodes</h2>
                         <h2 className='text-gray-400'>{movieDetails.
                             number_of_episodes
-}</h2>
+                        }</h2>
                     </div>
-                </div> :   <div className=" rounded">
+                </div> : <div className=" rounded">
                     <div className='flex justify-between '>
                         <h2 >Run time</h2>
                         <h2 className='text-gray-400'>{Math.floor(movieDetails.runtime / 60) + "h " + String(movieDetails.runtime % 60).padStart(2, "0") + "m"}</h2>

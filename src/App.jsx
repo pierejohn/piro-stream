@@ -8,9 +8,12 @@ import AppContextProvider from './context/AppContext.jsx'
 
 import Providers from './pages/Home/Providers.jsx'
 import WatchMovie from './components/WatchMovie/WatchMovie.jsx'
+
 import WatchTv from './components/WatchTv/WatchTv.jsx'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import Search from './components/Search/Search.jsx'
+import StreamTv from './components/StreamTv/StreamTv.jsx'
+import Footer from './components/Footer/Footer.jsx'
 function App() {
 
 const queryClient = new QueryClient({
@@ -32,6 +35,7 @@ const queryClient = new QueryClient({
     {path:'/movies',element:<Providers key="movies" tybe={'movies'}/>},
     {path:'watch/movies/:id',element:<WatchMovie tybe={'movie'}/>},
     {path:'watch/tv/:id/Season/:SeasonNum',element:<WatchMovie tybe={'tv'}/>},
+    {path:'watch/tv/:id/Season/:SeasonNum/Episode/:EpisodeNum',element:<StreamTv tybe={'tv'}/>},
     {path:'/tv_shows',element:<Providers key="tv" tybe={'tv'}/>},
     {path:'/search',element:<Search/>},
     {path:'/*',element:<><h1 className='h-screen w-screen flex items-center justify-center  text-accent text-2xl md:text-4xl lg:text-9xl '>Error Page Not Found (404)</h1></> }
@@ -41,10 +45,11 @@ const queryClient = new QueryClient({
 
 
   return (
-    <>
+    < >
     
     <AppContextProvider>
     <RouterProvider router={routes} />
+   
    </AppContextProvider>
     
     </>

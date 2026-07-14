@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import { getImage, requesMoviesOrTvDetails, requesMoviesOrTvLogo, trailerApi } from '../../api';
 import axios from 'axios';
 import Spinner from '../../components/Spinner/Spinner';
@@ -202,14 +202,25 @@ export default function WatchMovie({ tybe }) {
                             </div>
 
                             <div className='flex gap-3'>
-                                <button onClick={playVideo}
+                                <NavLink onClick={
+                                    ()=>
+                                    {if(tybe=='movie'){
+                                      playVideo()  
+                                    }
+                                       
+                                    }
+                                   
+                                
+                                }
+                                to={(tybe=='tv')?'Episode/1':''}
                                     className='btnGradiant my-2 px-1 rounded font-bold text-white md:p-3 md:px-6 flex gap-1 justify-center items-center cursor-pointer hover:scale-95 duration-300 text-sm'>
                                     <IoPlay />WATCH NOW
-                                </button>
+                                </NavLink>
                                 <button className='my-2 rounded bg-gray-700 text-white p-1 px-2 md:px-4 font-bold flex gap-3 justify-center items-center cursor-pointer hover:scale-95 duration-300'>
                                     <FaPlus />My Watchlist
                                 </button>
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -217,7 +228,9 @@ export default function WatchMovie({ tybe }) {
 
             {isPlayingVideo ? (
                 <div className='app-container mt-25'>
-                    <VideoPlayer movieDetails={movieDetails} setIsPlayingVideo={setIsPlayingVideo} />
+                    
+                    
+                    <VideoPlayer movieDetails={movieDetails} tybe='movie' setIsPlayingVideo={setIsPlayingVideo} />
                 </div>
             ) : (
                 <div className={`${showFullOverview
