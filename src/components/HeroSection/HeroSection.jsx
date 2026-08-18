@@ -51,7 +51,7 @@ export default function HeroSection() {
             console.log(data.data);
             
             setTrending(data.data)
-            setBgImg(getImage(data.data.backdrop_path))
+            setBgImg(getImage(data.data.backdrop_path,'original'))
             getMovieLogo(movie.id, movie.media_type);
             setIsLoading(false)
         }

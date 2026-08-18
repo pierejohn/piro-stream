@@ -25,35 +25,51 @@ export default function NetflixMoviesSlider(props) {
     const [netflixMovies, setNetflixMovies] = useState([])
 
 
-    async function getNetflixMoviesHome(type, category) {
-
-        await axios.get(popularMoviesAndTv(type, category)).then((data) => {
-            // console.log(data.data.results);
-            setNetflixMovies(data.data.results)
-        }).catch((error) => {
-            console.log(error);
-
-        })
-    }
-    async function getNetflixMovies() {
-        await axios.get(requesMoviesOrTvFromProvider(type, providerNumber)).then((data) => {
-            // console.log(data.data.results);
-            setNetflixMovies(data.data.results)
-        }).catch((error) => {
-            console.log(error);
-
-        })
-    }
-
-    useEffect(() => {
-        if (home) {
-            getNetflixMoviesHome(type, category)
-        } else {
-            getNetflixMovies()
+   async function getNetflixMoviesHome(type, category, signal) {
+    await axios.get(
+        popularMoviesAndTv(type, category),
+        { signal }
+    )
+    .then((data) => {
+        setNetflixMovies(data.data.results)
+    })
+    .catch((error) => {
+        if (axios.isCancel(error)) {
+            return
         }
 
+        console.log(error)
+    })
+}
 
+async function getNetflixMovies(signal) {
+    await axios.get(
+        requesMoviesOrTvFromProvider(type, providerNumber),
+        { signal }
+    )
+    .then((data) => {
+        setNetflixMovies(data.data.results)
+    })
+    .catch((error) => {
+        if (axios.isCancel(error)) {
+            return
+        }
 
+        console.log(error)
+    })
+}
+    useEffect(() => {
+        const controller = new AbortController()
+
+        if (home) {
+            getNetflixMoviesHome(type, category, controller.signal)
+        } else {
+            getNetflixMovies(controller.signal)
+        }
+
+        return () => {
+            controller.abort()
+        }
     }, [type, home, category, providerNumber])
 
     return (

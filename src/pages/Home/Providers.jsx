@@ -17,45 +17,68 @@ export default function Providers(props) {
   let { filterProvider } = useContext(AppContext)
 
   useEffect(() => {
-    setIsLoading(true)
-    setRandomHero(null)
-    setLogo(null)
-    // ✅ NEW: reset image loaded state on page change
-    setHeroImageLoaded(false)
+  const controller = new AbortController()
 
-    async function fetchHeroData() {
-      try {
-        const typeKey = props.tybe === 'movies' ? 'movie' : 'tv'
+  setIsLoading(true)
+  setRandomHero(null)
+  setLogo(null)
+  setHeroImageLoaded(false)
 
-        const trendingRes = await axios.get(trendingMoviesOrTv[typeKey])
-      
-        
-        const selectedMedia = trendingRes.data.results[random]
-        setRandomHero(selectedMedia)
+  async function fetchHeroData() {
+    try {
+      const typeKey = props.tybe === 'movies' ? 'movie' : 'tv'
 
-        const logoRes = await axios.get(requesMoviesOrTvLogo(selectedMedia.id, typeKey))
-        const logos = logoRes.data.logos
-
-        const englishLogo = logos.find(l => l.iso_639_1 === "en")
-        const anyLogo = logos[0]
-
-        if (englishLogo) {
-          setLogo(englishLogo.file_path)
-        } else if (anyLogo) {
-          setLogo(anyLogo.file_path)
+      const trendingRes = await axios.get(
+        trendingMoviesOrTv[typeKey],
+        {
+          signal: controller.signal
         }
+      )
 
-      } catch (error) {
-        console.log("Error:", error)
+      const selectedMedia = trendingRes.data.results[random]
+      setRandomHero(selectedMedia)
+
+      const logoRes = await axios.get(
+        requesMoviesOrTvLogo(selectedMedia.id, typeKey),
+        {
+          signal: controller.signal
+        }
+      )
+
+      const logos = logoRes.data.logos
+
+      const englishLogo = logos.find(
+        l => l.iso_639_1 === 'en'
+      )
+
+      const anyLogo = logos[0]
+
+      if (englishLogo) {
+        setLogo(englishLogo.file_path)
+      } else if (anyLogo) {
+        setLogo(anyLogo.file_path)
       }
-      // ✅ REMOVED: setIsLoading(false) from here
-      // Now spinner hides only after image is loaded (see onLoad below)
+
+    } catch (error) {
+
+      // Ignore cancellation errors
+      if (error.name === 'CanceledError') {
+        console.log('Request cancelled')
+        return
+      }
+
+      console.log('Error:', error)
     }
+  }
 
-    fetchHeroData()
+  fetchHeroData()
 
-  }, [props.tybe])
+  // 🔥 This runs when you leave the page
+  return () => {
+    controller.abort()
+  }
 
+}, [props.tybe])
   // ✅ NEW: This runs when heroImageLoaded becomes true
   // Spinner hides ONLY after image is fully loaded
   useEffect(() => {
@@ -94,7 +117,7 @@ export default function Providers(props) {
                 group-hover:scale-110
                 ${heroImageLoaded ? 'opacity-100' : 'opacity-0'}
               `}
-              src={getImage(randomHero.backdrop_path)}
+              src={getImage(randomHero.backdrop_path,'original')}
               alt="hero"
               // ✅ This fires when image is fully loaded
               onLoad={() => setHeroImageLoaded(true)}

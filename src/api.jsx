@@ -79,8 +79,8 @@ export const tvSeasonDetailsApi = (tvId, seasonNumber) =>
 
 
 // Image helper
-export const getImage = (path) => {
-  return `${IMAGE_BASE_URL}${path}`;
+export const getImage = (path, size = 'w500') => {
+  return `https://image.tmdb.org/t/p/${size}${path}`;
 };
 // get movies or Tv details
 export function requesMoviesOrTvDetails(ID,type){

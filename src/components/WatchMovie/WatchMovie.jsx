@@ -103,7 +103,7 @@ export default function WatchMovie({ tybe }) {
 
                     <div className="relative w-full h-[70vh] overflow-hidden">
                         <img
-                            src={getImage(movieDetails.backdrop_path)}
+                            src={getImage(movieDetails.backdrop_path,'original')}
                             alt=""
                             className={`
                                 absolute inset-0 w-full h-full object-cover
@@ -179,7 +179,7 @@ export default function WatchMovie({ tybe }) {
 
                             <div className="relative">
                                 <div className="rounded absolute w-30 h-60 right-0 -top-30 sm:w-40 sm:h-80 sm:right-10 sm:-top-25 md:w-60 md:h-120 md:right-10 md:-top-55">
-                                    <img className='rounded-2xl' src={getImage(movieDetails.poster_path)} alt="" />
+                                    <img className='rounded-2xl' src={getImage(movieDetails.poster_path,'original')} alt="" />
                                 </div>
                             </div>
                         </div>
