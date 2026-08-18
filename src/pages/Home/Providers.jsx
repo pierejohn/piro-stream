@@ -61,7 +61,7 @@ export default function Providers(props) {
 
     } catch (error) {
 
-      // Ignore cancellation errors
+      
       if (error.name === 'CanceledError') {
         console.log('Request cancelled')
         return
@@ -79,8 +79,7 @@ export default function Providers(props) {
   }
 
 }, [props.tybe])
-  // ✅ NEW: This runs when heroImageLoaded becomes true
-  // Spinner hides ONLY after image is fully loaded
+  
   useEffect(() => {
     if (heroImageLoaded) {
       setIsLoading(false)
@@ -131,6 +130,7 @@ export default function Providers(props) {
                     className='w-30 sm:w-70'
                     src={getImage(logo)}
                     alt="logo"
+                    loading='lazy'
                   />
                 )}
 

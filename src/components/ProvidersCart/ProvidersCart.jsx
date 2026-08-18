@@ -21,7 +21,7 @@ export default function ProvidersCart(props) {
           <div className="relative overflow-hidden rounded-2xl">
             <img
               className="h-20 w-full object-cover transition-transform duration-500 group-hover:scale-110"
-              src={`https://image.tmdb.org/t/p/original/${props.providers.logo_path}`}
+              src={`https://image.tmdb.org/t/p/w500/${props.providers.logo_path}`}
 
               alt=""
             />

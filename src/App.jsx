@@ -14,6 +14,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import Search from './components/Search/Search.jsx'
 import StreamTv from './components/StreamTv/StreamTv.jsx'
 import Footer from './components/Footer/Footer.jsx'
+import MediaList from './components/MediaList/MediaList.jsx'
 function App() {
 
 const queryClient = new QueryClient({
@@ -33,6 +34,7 @@ const queryClient = new QueryClient({
 
     {index:true,element:<Home/>},
     {path:'/movies',element:<Providers key="movies" tybe={'movies'}/>},
+    {path:'/:media/:type/:category',element:<MediaList/>},
     {path:'watch/movies/:id',element:<WatchMovie tybe={'movie'}/>},
     {path:'watch/tv/:id/Season/:SeasonNum',element:<WatchMovie tybe={'tv'}/>},
     {path:'watch/tv/:id/Season/:SeasonNum/Episode/:EpisodeNum',element:<StreamTv tybe={'tv'}/>},
@@ -48,6 +50,7 @@ const queryClient = new QueryClient({
     < >
     
     <AppContextProvider>
+       
     <RouterProvider router={routes} />
    
    </AppContextProvider>

@@ -21,7 +21,7 @@ export default function MovieCartTrending(props) {
           <div className="relative overflow-hidden rounded-2xl">
             <img
               className=" w-full object-cover rounded-2xl transition-transform duration-500 group-hover:scale-110"
-              src={`https://image.tmdb.org/t/p/original/${props.movieDetails.backdrop_path}`}
+              src={`https://image.tmdb.org/t/p/w500/${props.movieDetails.backdrop_path}`}
 
               alt=""
             />

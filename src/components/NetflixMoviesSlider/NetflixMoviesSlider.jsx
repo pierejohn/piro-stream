@@ -12,6 +12,7 @@ import 'swiper/css/pagination'
 import axios from 'axios'
 
 import { FaHandPointRight } from "react-icons/fa";
+import { NavLink } from 'react-router-dom'
 
 export default function NetflixMoviesSlider(props) {
 
@@ -21,43 +22,45 @@ export default function NetflixMoviesSlider(props) {
     let { providerName, providerNumber, type, category = null, home = false } = props
 
 
-
     const [netflixMovies, setNetflixMovies] = useState([])
 
 
-   async function getNetflixMoviesHome(type, category, signal) {
-    await axios.get(
-        popularMoviesAndTv(type, category),
-        { signal }
-    )
-    .then((data) => {
-        setNetflixMovies(data.data.results)
-    })
-    .catch((error) => {
-        if (axios.isCancel(error)) {
-            return
-        }
+    async function getNetflixMoviesHome(type, category, signal) {
+        await axios.get(
+            popularMoviesAndTv(type, category),
+            { signal }
+        )
+            .then((data) => {
+                setNetflixMovies(data.data.results)
 
-        console.log(error)
-    })
-}
 
-async function getNetflixMovies(signal) {
-    await axios.get(
-        requesMoviesOrTvFromProvider(type, providerNumber),
-        { signal }
-    )
-    .then((data) => {
-        setNetflixMovies(data.data.results)
-    })
-    .catch((error) => {
-        if (axios.isCancel(error)) {
-            return
-        }
+            })
+            .catch((error) => {
+                if (axios.isCancel(error)) {
+                    return
+                }
 
-        console.log(error)
-    })
-}
+                console.log(error)
+            })
+    }
+
+    async function getNetflixMovies(signal) {
+        await axios.get(
+            requesMoviesOrTvFromProvider(type, providerNumber),
+            { signal }
+        )
+            .then((data) => {
+                setNetflixMovies(data.data.results)
+                
+            })
+            .catch((error) => {
+                if (axios.isCancel(error)) {
+                    return
+                }
+
+                console.log(error)
+            })
+    }
     useEffect(() => {
         const controller = new AbortController()
 
@@ -75,8 +78,11 @@ async function getNetflixMovies(signal) {
     return (
         <div className='app-container mt-5'>
 
-            <h1 className='text-gray-500 w-fit  text-md md:text-xl lg:text-2xl font-bold my-5 border-s-8 cursor-pointer  border-primary ps-3 flex gap-3 items-center hover:text-white duration-300'>{providerName}<FaChevronRight />
-            </h1>
+
+            <NavLink
+                to={`/${providerName}/${type}/${category === null ? Number(providerNumber) : category}`}
+                className='text-gray-500 w-fit  text-md md:text-xl lg:text-2xl font-bold my-5 border-s-8 cursor-pointer  border-primary ps-3 flex gap-3 items-center hover:text-white duration-300'>{providerName}<FaChevronRight />
+            </NavLink>
 
             <Swiper className='cursor-grab'
 
@@ -127,6 +133,8 @@ async function getNetflixMovies(signal) {
 
                 {netflixMovies.map((val, index) => (
                     <SwiperSlide key={val.id || index}>
+
+
                         <MoviesCartPoster type={type} movieDetails={val} index={index + 1} />
 
                     </SwiperSlide>
