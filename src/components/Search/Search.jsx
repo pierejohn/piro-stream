@@ -32,7 +32,7 @@ export default function Search() {
 
     }, [])
     return (
-        <div className='pt-20 text-white app-container'>
+        <div className='pt-20 text-white app-container '>
             <form onSubmit={(e) => {
                 e.preventDefault()
             }
@@ -40,14 +40,15 @@ export default function Search() {
                 <input type="text" onKeyUp={(e) => { e.target.value.length >= 3 ? searchFunction(e.target.value, 1) : searchFunction('', 1) }
                     // searchFunction(e.target.value, 1)
 
-                } className='bg-white w-full my-5 p-2 rounded-2xl text-black' />
+                } className='bg-white w-full my-5 p-2 rounded-2xl text-black ' />
             </form>
 
-            {searchedItems ? <div className='flex gap-2 flex-wrap'>
+            {searchedItems ? <div className='flex gap-2 flex-wrap  justify-center items-center'>
                 {searchedItems.map((val, index) => {
                     console.log(val);
                     return <div className=' w-fit'>
                         <MoviesCartPoster type={val.media_type} movieDetails={val} index={index + 1} />
+                        
                     </div>
 
 

@@ -65,10 +65,21 @@ export const trendingMoviesOrTv = {
  
 // };
 
+export function moviesOrTvByProviderAndGenre(
+    type,
+    provider,
+    genre,
+    page = 1
+) {
+    return `${BASE_URL}/discover/${type}?api_key=${API_KEY}&with_watch_providers=${provider}&with_genres=${genre}&watch_region=EG&page=${page}`;
+}
+
 
 export function popularMoviesAndTv(type, categories, page = 1) {
     return `${BASE_URL}/${type}/${categories}?api_key=${API_KEY}&page=${page}`
 }
+
+
 
 // get the trailler
 export function trailerApi(id,type){
@@ -105,8 +116,21 @@ export function requestAllProviders(type)
 //   return `${MOVIE_AND_TV_DETAILS_BASE_URL}discover/${type}?api_key=${API_KEY}&with_watch_providers=${provider}&watch_region=US&sort_by=popularity.desc`
 
 // };
-   export function requesMoviesOrTvFromProvider(type, provider, page = 1) {
-    return `${MOVIE_AND_TV_DETAILS_BASE_URL}discover/${type}?api_key=${API_KEY}&with_watch_providers=${provider}&watch_region=US&sort_by=popularity.desc&page=${page}`
+//    export function requesMoviesOrTvFromProvider(type, provider, page = 1) {
+//     return `${MOVIE_AND_TV_DETAILS_BASE_URL}discover/${type}?api_key=${API_KEY}&with_watch_providers=${provider}&watch_region=US&sort_by=popularity.desc&page=${page}`
+// }
+
+//    export function requesMoviesOrTvFromProvider(type, provider, page = 1) {
+//     return `${MOVIE_AND_TV_DETAILS_BASE_URL}discover/${type}?api_key=${API_KEY}&with_watch_providers=${provider}&watch_region=US&sort_by=popularity.desc&page=${page}`
+// }
+
+ export function requesMoviesOrTvFromProvider(
+    type,
+    provider,
+    genre = null,
+    page = 1
+) {
+    return `${BASE_URL}/discover/${type}?api_key=${API_KEY}${genre ? `&with_genres=${genre}` : ''}&with_watch_providers=${provider}&watch_region=US&sort_by=popularity.desc&page=${page}`;
 }
 
 

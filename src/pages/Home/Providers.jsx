@@ -154,7 +154,7 @@ export default function Providers(props) {
 
         {/* Providers Sliders */}
         {!isLoading && filterProvider.map((val) => (
-          <div key={val.provider_id}>
+          <div key={val.provider_id}>          
             <NetflixMoviesSlider
               providerName={`${val.provider_name} ${props.tybe === 'movies' ? 'Movies' : 'Tv Series'}`}
               type={props.tybe === 'movies' ? 'movie' : 'tv'}
