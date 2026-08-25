@@ -3,8 +3,7 @@ import React from 'react'
 export default function VideoDetails({ movieDetails, type }) {
     return (
         <>
-            {console.log(type)}
-
+            
             <div className='text-gray-500 w-fit  text-md md:text-xl lg:text-2xl font-bold my-5 border-s-8 cursor-pointer  border-primary ps-3 flex gap-3 items-center hover:text-white duration-300'>Details</div>
 
             {/* grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 */}

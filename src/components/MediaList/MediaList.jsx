@@ -114,6 +114,7 @@ export default function MediaList() {
                     )
 
             console.log('PAGE:', pageNumber)
+            console.log('category:', category)
             console.log('GENRE:', genere)
             console.log('URL:', url)
 
@@ -125,6 +126,7 @@ export default function MediaList() {
 
                 // Replace results when genre changes
                 setMoviesAndTv(newMovies)
+               
 
             } else {
 
@@ -208,11 +210,15 @@ export default function MediaList() {
     return (
 
         <div className="app-container pt-20">
-            <GenereMobile
+{ category === 'popular' ||
+                    category === 'top_rated'?"": <GenereMobile
                 setGenere={setGenere}
                 setGenereName={setGenereName}
                 genres={type === 'tv' ? genres[1] : genres[0]}
-            />
+            />}
+           
+
+
             <h2 className="text-2xl p-5 text-white ">
                 {`${media}  ${(genereName == null ? '' : '  >>  ' +genereName
 )}`}
@@ -221,20 +227,23 @@ export default function MediaList() {
             <div className="grid lg:grid-cols-5 md:grid-cols-4">
 
                 <div
-                    className="
-                        lg:col-span-4
-                        md:col-span-3
+                    className={`
+                        ${(category === 'popular' ||
+                    category === 'top_rated'?
+                    'lg:col-span-5 md:col-span-4 2xl:grid-cols-8 xl:grid-cols-6 lg:grid-cols-5':
+                    
+                    
+                    'lg:col-span-4 md:col-span-3 2xl:grid-cols-7 xl:grid-cols-5 lg:grid-cols-4')}
+                        
                         self-start
                         grid
-                        2xl:grid-cols-7
-                        xl:grid-cols-5
-                        lg:grid-cols-4
+                        
                         md:grid-cols-3
                         sm:grid-cols-5
                         grid-cols-3
                         gap-y-5
                         justify-items-center
-                    "
+                    `}
                 >
 
                     {moviesAndTv.map((movie, index) => (
@@ -256,15 +265,18 @@ export default function MediaList() {
                 </div>
 
                 <div className='hidden md:block'>
-                    <Genere
+                    { category === 'popular' ||
+                    category === 'top_rated'?"": <Genere
                         setGenereName={setGenereName}
                         setGenere={setGenere}
+                        // category= {category}
                         genres={
                             type === 'tv'
                                 ? genres[1]
                                 : genres[0]
                         }
-                    />
+                    />}
+                    
                 </div>
             </div>
 

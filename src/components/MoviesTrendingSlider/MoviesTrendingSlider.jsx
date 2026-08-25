@@ -57,8 +57,10 @@ let {trendingMovies}=useContext(AppContext)
                     },
                 }}
             >
-                {trendingMovies.splice(0,10).map((val, index) => (
+                {trendingMovies.map((val, index) => (
                     <SwiperSlide key={val.id || index}>
+                        
+                        
                         <MovieCartTrending movieDetails={val} index={index + 1} />
                     </SwiperSlide>
                 ))}

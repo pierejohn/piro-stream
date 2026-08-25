@@ -72,6 +72,8 @@ export default function ProvidersSliders() {
                     },
                 }}
             >
+          
+                
                 {filterProvider.map((val, index) => (
                   
                     <SwiperSlide key={val.id || index}>

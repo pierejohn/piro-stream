@@ -8,6 +8,7 @@ export default function Genere({ genres, setGenere ,setGenereName}) {
         setGenere(id)
     }
 
+
     return (
 
         <div

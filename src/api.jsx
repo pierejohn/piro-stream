@@ -13,6 +13,14 @@ export const requests = {
   upcoming: `${BASE_URL}/movie/upcoming?api_key=${API_KEY}`,
 };
 
+
+//get actors information
+export function getActorinfo(id)
+{
+  
+  return `${BASE_URL}/person/${id}?api_key=${API_KEY}`
+
+}
 // ✅ Get tv tt of the seson
 
 
@@ -81,6 +89,7 @@ export function popularMoviesAndTv(type, categories, page = 1) {
 
 
 
+
 // get the trailler
 export function trailerApi(id,type){
 
@@ -97,6 +106,10 @@ export const tvSeasonDetailsApi = (tvId, seasonNumber) =>
 // Image helper
 export const getImage = (path, size = 'w500') => {
   return `https://image.tmdb.org/t/p/${size}${path}`;
+};
+
+export const getOriginalImage = (path) => {
+  return `https://image.tmdb.org/t/p/original/${path}`;
 };
 // get movies or Tv details
 export function requesMoviesOrTvDetails(ID,type){

@@ -2,12 +2,18 @@ import React, { useEffect, useState } from 'react'
 import { cast, getImage } from '../../api'
 import axios from 'axios'
 import unKnownIcon from '../../assets/unKnownIcon.png'
+import { useNavigate } from 'react-router-dom'
+import { FaCaretDown, FaCaretUp } from "react-icons/fa";
 
 function CastCard({ val }) {
   const [imgLoading, setImgLoading] = useState(true)
-
+ const navigate=useNavigate()
   return (
-    <div className='flex flex-col justify-center items-center gap-2 w-[27%] md:w-fit'>
+    <div onClick={()=>{
+navigate(`/actorDetail/${val.id}`)
+      
+    }
+    } className='flex flex-col justify-center items-center gap-2 w-[27%] md:w-fit'>
       <div className='relative size-15 md:size-32'>
         {imgLoading && (
           <div className='absolute inset-0 rounded-full bg-gray-700 animate-pulse'></div>
@@ -31,7 +37,8 @@ function CastCard({ val }) {
   )
 }
 
-export default function CastDetails({ type, Details }) {
+export default function CastDetails({ type, Details }) 
+{ const [seeAll, setSeeAll] = useState(false)
   const [castIng, setCastIng] = useState([])
   const [isLoading, setIsLoading] = useState(true)
 
@@ -70,10 +77,19 @@ export default function CastDetails({ type, Details }) {
                 <div className='w-16 h-4 rounded bg-gray-700 animate-pulse'></div>
               </div>
             ))
-          : castIng.slice(0, 11).map((val) => (
+          : castIng.slice(0, seeAll ? castIng.length : 11).map((val) => (
               <CastCard key={val.id} val={val} />
             ))}
-      </div>
+           
+      </div> <h2 onClick={()=>setSeeAll(!seeAll)} className='text-primary  cursor-pointer w-fit'>See {seeAll === false ? (
+    < >
+        more <FaCaretDown  className='inline'/>
+    </>
+) : (
+    <>
+        less <FaCaretUp className='inline'/>
+    </>
+)} </h2>
     </div>
   )
 }

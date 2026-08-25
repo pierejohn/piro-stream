@@ -7,6 +7,7 @@ import { requests, getImage, requesMoviestDetails, requesMoviesOrTvDetails, requ
 import axios from 'axios';
 import Spinner from '../Spinner/Spinner';
 import { AppContext } from '../../context/AppContext';
+import { useNavigate } from 'react-router-dom';
 
 
 export default function HeroSection() {
@@ -22,6 +23,29 @@ export default function HeroSection() {
   
 
     // get the trenting movies 
+
+  
+  let navigate=useNavigate()
+
+  function MoviOrTvDetails(type,id) {
+   console.log(type);
+   
+    
+    if (type.name) {
+    
+     
+
+      navigate(`/watch/tv/${id}/Season/1`);
+    } else {
+     
+      
+navigate(`/watch/movies/${id}`);
+      
+    
+    }
+
+
+  }
     async function getMovies() {
 
         await axios.get(requests.trending).then((data) => {
@@ -48,7 +72,7 @@ export default function HeroSection() {
 
 
         await axios.get(requesMoviesOrTvDetails(movie.id, movie.media_type)).then((data) => {
-            console.log(data.data);
+           
             
             setTrending(data.data)
             setBgImg(getImage(data.data.backdrop_path,'original'))
@@ -115,7 +139,7 @@ export default function HeroSection() {
                             </h1>
                             <h1 className='text-xs md:text-sm w-65 sm:w-80 lg:w-100 sm:text-md sm:font-light text-gray-400'>{trending.overview.slice(0, 100) + '...'}</h1>
                             <div className='flex gap-3'>
-                                <button className='btnGradiant my-2 rounded text-white p-3 px-6 font-bold flex gap-3 justify-center items-center cursor-pointer hover:scale-95 duration-300'><IoPlay />WATCH NOW</button>
+                                <button onClick={()=> MoviOrTvDetails(trending,trending.id)} className='btnGradiant my-2 rounded text-white p-3 px-6 font-bold flex gap-3 justify-center items-center cursor-pointer hover:scale-95 duration-300'><IoPlay />WATCH NOW</button>
                                 <button className=' my-2 rounded bg-gray-700 text-white p-1 px-4 font-bold flex gap-3 justify-center items-center cursor-pointer hover:scale-95 duration-300'><IoMdInformationCircle />
                                     Deatails</button>
                             </div>
