@@ -60,7 +60,7 @@ const sortedCredits = uniqueCredits.sort(
   }
   useEffect(() => {
 
-
+ window.scrollTo(0, 0);
     getActorInfo()
   }, [])
 
