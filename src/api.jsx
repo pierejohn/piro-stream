@@ -18,9 +18,11 @@ export const requests = {
 export function getActorinfo(id)
 {
   
-  return `${BASE_URL}/person/${id}?api_key=${API_KEY}`
+  return `${BASE_URL}/person/${id}?api_key=${API_KEY}&append_to_response=combined_credits,images,external_ids`
 
 }
+
+
 // ✅ Get tv tt of the seson
 
 
