@@ -27,16 +27,16 @@ export default function VideoPlayer({ movieDetails = {}, setIsPlayingVideo, tybe
           : `https://vaplayer.ru/embed/movie/${imdb_id || id}`,
     },
     
-    {
-      name: 'Server 2 (MultiEmbed)',
-      getUrl: () =>
-        tybe === 'tv'
-          ? `https://multiembed.mov/?video_id=${seriesId}&tmdb=1&s=${SeasonNum}&e=${EpisodeNum}`
-          : `https://multiembed.mov/?video_id=${id || imdb_id}&tmdb=1`,
-    },
+    // {
+    //   name: 'Server 2 (MultiEmbed)',
+    //   getUrl: () =>
+    //     tybe === 'tv'
+    //       ? `https://multiembed.mov/?video_id=${seriesId}&tmdb=1&s=${SeasonNum}&e=${EpisodeNum}`
+    //       : `https://multiembed.mov/?video_id=${id || imdb_id}&tmdb=1`,
+    // },
    
     {
-      name: 'Server 3 (VidLink - Modern UI)',
+      name: 'Server 2 (VidLink - Modern UI)',
       getUrl: () =>
         tybe === 'tv'
           ? `https://vidlink.pro/tv/${seriesId}/${SeasonNum}/${EpisodeNum}`
