@@ -5,7 +5,7 @@ import Navbar from './components/Navbar/Navbar'
 import Home from './pages/Home/Home'
 import MainLayout from './Layouts/MainLayout/MainLayout'
 import AppContextProvider from './context/AppContext.jsx'
-
+// import { Analytics } from "@vercel/analytics/next"
 import Providers from './pages/Home/Providers.jsx'
 import WatchMovie from './components/WatchMovie/WatchMovie.jsx'
 
@@ -54,7 +54,7 @@ const queryClient = new QueryClient({
     <AppContextProvider>
        
     <RouterProvider router={routes} />
-   
+   {/* <Analytics /> */}
    </AppContextProvider>
     
     </>
