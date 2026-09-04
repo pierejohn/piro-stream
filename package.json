@@ -13,7 +13,10 @@
     "@tailwindcss/vite": "^4.3.1",
     "@tanstack/react-query": "^5.101.2",
     "@vercel/analytics": "^2.0.1",
+    "@vidstack/react": "^0.6.15",
+    "artplayer": "^5.4.0",
     "axios": "^1.18.0",
+    "hls.js": "^1.7.2",
     "motion": "^12.42.2",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
@@ -21,7 +24,8 @@
     "react-router-dom": "^7.17.0",
     "react-spinners": "^0.17.0",
     "swiper": "^12.2.0",
-    "tailwindcss": "^4.3.1"
+    "tailwindcss": "^4.3.1",
+    "vidstack": "^0.6.15"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
