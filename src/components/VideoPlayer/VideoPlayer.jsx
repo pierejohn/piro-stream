@@ -106,7 +106,7 @@ export default function VideoPlayer({ movieDetails = {}, setIsPlayingVideo, tybe
         </div>
 
         {/* Reload button */}
-        <div className="flex items-center gap-2">
+        {/* <div className="flex items-center gap-2">
           <button
             onClick={handleRefresh}
             title="Reload Stream"
@@ -114,7 +114,7 @@ export default function VideoPlayer({ movieDetails = {}, setIsPlayingVideo, tybe
           >
             <IoRefreshOutline className={`text-lg ${isLoading ? 'animate-spin text-red-500' : ''}`} />
           </button>
-        </div>
+        </div> */}
       </div>
 
       {/* Video Player Container */}
@@ -123,7 +123,7 @@ export default function VideoPlayer({ movieDetails = {}, setIsPlayingVideo, tybe
         <div className="absolute -inset-1 bg-gradient-to-r from-red-600/30 via-purple-600/20 to-blue-600/30 rounded-2xl blur-xl opacity-50 group-hover:opacity-75 transition duration-1000 -z-10" />
 
         <div className="relative w-full aspect-video rounded-2xl overflow-hidden bg-black border border-zinc-800/80 shadow-2xl">
-          {isLoading && (
+          {/* {isLoading && (
             <div className="absolute inset-0 bg-zinc-950 flex flex-col items-center justify-center z-10 pointer-events-none">
               <div className="relative flex items-center justify-center">
                 <div className="w-16 h-16 border-4 border-zinc-800 border-t-red-600 rounded-full animate-spin" />
@@ -133,7 +133,7 @@ export default function VideoPlayer({ movieDetails = {}, setIsPlayingVideo, tybe
                 Connecting to {servers[selectedServer]?.name.split(' ')[1]}...
               </p>
             </div>
-          )}
+          )} */}
 
           <iframe
             key={iframeKey}
