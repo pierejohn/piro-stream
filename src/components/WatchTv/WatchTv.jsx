@@ -15,7 +15,7 @@ export default function WatchTv() {
         try {
             const { data } = await axios.get(requesMoviesOrTvDetails(parms.id, 'tv'));
             setTvDetails(data); // Store the whole object
-            console.log(data);
+            // console.log(data);
             
         } catch (error) {
             console.log(error);

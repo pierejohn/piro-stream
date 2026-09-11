@@ -12,7 +12,7 @@ import RecommendationsToWatch from '../RecommendationsToWatch/RecommendationsToW
 import VideoDetails from '../VideoDetails/VideoDetails';
 import CastDetails from '../CastDetails/CastDetails';
 // ✅ Import the new component
-import SeasonsAndEpisodes from '../SeasonsAndEpisodes/SeasonsAndEpisodes'; 
+import SeasonsAndEpisodes from '../SeasonsAndEpisodes/SeasonsAndEpisodes';
 
 export default function WatchMovie({ tybe }) {
 
@@ -25,7 +25,9 @@ export default function WatchMovie({ tybe }) {
     const [isPlayingVideo, setIsPlayingVideo] = useState(false);
     const [showFullOverview, setShowFullOverview] = useState(false)
     const [iframeReady, setIframeReady] = useState(false)
+    const [isExistInMoviesList, setIsExistInMoviesList] = useState(false)
 
+   
     async function getMovieLogo(movieId, type) {
         try {
             const { data } = await axios.get(requesMoviesOrTvLogo(movieId, type))
@@ -43,7 +45,7 @@ export default function WatchMovie({ tybe }) {
         setTrailerVideo(null)
         setLogo(null)
         setShowFullOverview(false)
-
+        setIsExistInMoviesList(false)
         try {
             const { data } = await axios.get(requesMoviesOrTvDetails(parms.id, tybe));
             setMovieDetails(data);
@@ -77,10 +79,49 @@ export default function WatchMovie({ tybe }) {
         setIsPlayingVideo(true)
     }
 
+
+function addToWatchList() {
+    const movie = {
+        ...movieDetails,
+        tybe
+    };
+
+    let watchlist = JSON.parse(localStorage.getItem('watchList')) || [];
+
+    watchlist.push(movie);
+
+    localStorage.setItem('watchList', JSON.stringify(watchlist));
+
+    setIsExistInMoviesList(true);
+}
+     function RemoveFromWatchList(){
+       setIsExistInMoviesList(false)
+       let watchlist = JSON.parse(localStorage.getItem('watchList'));
+       let index = watchlist.findIndex(item => item.id == parms.id)  
+       watchlist.splice(index,1) 
+       localStorage.setItem('watchList', JSON.stringify(watchlist))
+      
+    //    watchlist.slice(index,1)
+       
+
+    }
+    function findInMoviesList() {
+        let watchlist = JSON.parse(localStorage.getItem('watchList'))
+        if (watchlist) {
+            let movie = watchlist.find(item => item.id == parms.id)
+
+            if (movie) {
+                setIsExistInMoviesList(true)
+
+
+            }
+        } return
+
+    }
     useEffect(() => {
         window.scrollTo({ top: 0, behavior: "smooth" });
         getDetails();
-
+        findInMoviesList()
         const timer = setTimeout(() => {
             setShowVideo(true)
         }, 3000);
@@ -103,7 +144,7 @@ export default function WatchMovie({ tybe }) {
 
                     <div className="relative w-full h-[70vh] overflow-hidden">
                         <img
-                            src={getImage(movieDetails.backdrop_path,'original')}
+                            src={getImage(movieDetails.backdrop_path, 'original')}
                             alt=""
                             className={`
                                 absolute inset-0 w-full h-full object-cover
@@ -179,7 +220,7 @@ export default function WatchMovie({ tybe }) {
 
                             <div className="relative">
                                 <div className="rounded absolute w-30 h-60 right-0 -top-30 sm:w-40 sm:h-80 sm:right-10 sm:-top-25 md:w-60 md:h-120 md:right-10 md:-top-55">
-                                    <img className='rounded-2xl' src={getImage(movieDetails.poster_path,'original')} alt="" />
+                                    <img className='rounded-2xl' src={getImage(movieDetails.poster_path, 'original')} alt="" />
                                 </div>
                             </div>
                         </div>
@@ -203,22 +244,25 @@ export default function WatchMovie({ tybe }) {
 
                             <div className='flex gap-3'>
                                 <NavLink onClick={
-                                    ()=>
-                                    {if(tybe=='movie'){
-                                      playVideo()  
+                                    () => {
+                                        if (tybe == 'movie') {
+                                            playVideo()
+                                        }
+
                                     }
-                                       
-                                    }
-                                   
-                                
+
+
                                 }
-                                to={(tybe=='tv')?'Episode/1':''}
+                                    to={(tybe == 'tv') ? 'Episode/1' : ''}
                                     className='btnGradiant my-2 px-1 rounded font-bold text-white md:p-3 md:px-6 flex gap-1 justify-center items-center cursor-pointer hover:scale-95 duration-300 text-sm'>
                                     <IoPlay />WATCH NOW
                                 </NavLink>
-                                <button className='my-2 rounded bg-gray-700 text-white p-1 px-2 md:px-4 font-bold flex gap-3 justify-center items-center cursor-pointer hover:scale-95 duration-300'>
+                                {(isExistInMoviesList ? <button onClick={() => RemoveFromWatchList()} className='my-2 rounded bg-transparent border border-red-700 text-red-700 p-1 px-2 md:px-4 font-bold flex gap-3 justify-center items-center cursor-pointer hover:scale-95 duration-300'>
+                                   Remove from Watchlist
+                                </button> : <button onClick={() => addToWatchList()} className='my-2 rounded bg-gray-700 text-white p-1 px-2 md:px-4 font-bold flex gap-3 justify-center items-center cursor-pointer hover:scale-95 duration-300'>
                                     <FaPlus />My Watchlist
-                                </button>
+                                </button>)}
+
                             </div>
 
                         </div>
@@ -228,8 +272,8 @@ export default function WatchMovie({ tybe }) {
 
             {isPlayingVideo ? (
                 <div className='app-container mt-25'>
-                    
-                    
+
+
                     <VideoPlayer movieDetails={movieDetails} tybe='movie' setIsPlayingVideo={setIsPlayingVideo} />
                 </div>
             ) : (
@@ -240,9 +284,9 @@ export default function WatchMovie({ tybe }) {
 
                     {/* ✅ Use the new component here */}
                     {tybe === 'tv' && movieDetails.seasons && (
-                        <SeasonsAndEpisodes 
-                            tvId={movieDetails.id} 
-                            seasons={movieDetails.seasons} 
+                        <SeasonsAndEpisodes
+                            tvId={movieDetails.id}
+                            seasons={movieDetails.seasons}
                         />
                     )}
 
